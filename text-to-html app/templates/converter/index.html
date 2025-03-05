@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text to HTML Converter</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h2>Text to HTML Converter</h2>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Convert</button>
+        </form>
+
+        {% if html_output %}
+            <h3>Converted HTML Output:</h3>
+            <div class="output">
+                <pre><code>{{ html_output|escape }}</code></pre>  <!-- ✅ Shows raw HTML tags -->
+            </div>
+            <h3>Rendered Output:</h3>
+            <div class="output">
+                {{ html_output|safe }}  <!-- ✅ Renders the HTML output properly -->
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
